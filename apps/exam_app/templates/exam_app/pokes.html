@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pokes</title>
+	<meta charset="UTF-8">
+	 <!-- Compiled and minified CSS Materialize -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<nav>
+	    <div class="nav-wrapper blue">
+	    	<h1>Welcome {{request.session.user.name}}</h1>
+	    	<ul id="nav" class="right green">
+    			<li>
+    				<a href="/logout">Logout</a>
+    			</li>
+    		</ul>
+	    </div>
+  	</nav>
+		<div class="row">
+      {% if pokes == 1 %}
+        <h5>{{PeopleWhoPokedMeCount}} Person Poked You!</h5>
+      {% else %}
+			   <h5>{{PeopleWhoPokedMeCount}} People Poked You!</h5>
+      {% endif %}
+		</div>
+    <div class="col s8">
+				  {% for user in PeopleWhoPokedMe %}
+					     <p>{{user.alias}} has poked you {{user.total_pokes}} times!<p>
+          {% endfor %}
+    </div>
+	<div class="row">
+
+    <div class="col s10">
+      <h4>People You May Want to Poke!</h4>
+			<table>
+				<tr>
+          <th>Name</th>
+					<th>Alias</th>
+					<th>Email Address</th>
+          <th>Poke History</th>
+					<th>Action</th>
+				</tr>
+				{% for user in users %}
+					<tr>
+            <td>{{user.name}}</td>
+            <td>{{user.alias}}</td>
+            <td>{{user.email}}</td>
+						<td>{{user.total_pokes}}</td>
+						<td><form action="poke/{{user.id}}" method="POST"><button>Poke</button>{% csrf_token %}</form></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>

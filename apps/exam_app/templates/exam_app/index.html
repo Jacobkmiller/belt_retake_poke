@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome</title>
+	<meta charset="UTF-8">
+	<!-- Compiled and minified CSS Materialize -->
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  	<!-- Compiled and minified JavaScript -->
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<nav>
+	    <div class="nav-wrapper blue">
+	    	<h1>Welcome</h1>
+	    </div>
+  	</nav>
+	<div class="row">
+    {% for message in messages %}
+  		<p><span class="red-text">{{message.message}}</span></p>
+  	{% endfor %}
+    {% for message in hacks %}
+  		<p><span class="red-text">{{message}}</span></p>
+  	{% endfor %}
+		<div class="col s6">
+			<h3>Register</h3>
+			<form action="/register" method="POST">
+				Name: <input type="text" name="name">
+				Alias: <input type="text" name="alias">
+				Email: <input type="email" name="email">
+				Password: <input type="password" name="password">
+				<p>*Password should be at least 8 characters</p>
+				Confrim Password: <input type="password" name="confirm_pw">
+				Date of Birth: <input type="date" name="birthdate">
+				<button>Register</button>
+				{% csrf_token %}
+			</form>
+		</div>
+		<div class="col s5">
+			<h3>Login</h3>
+			<form action="/login" method="POST">
+				Email: <input type="email" name="email">
+				Password: <input type="password" name="password">
+				<button>Login</button>
+				{% csrf_token %}
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>
